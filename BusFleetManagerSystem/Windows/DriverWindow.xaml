@@ -1,0 +1,49 @@
+﻿<Window x:Class="BusFleetManagerSystem.Windows.DriverWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusFleetManagerSystem.Windows"
+        mc:Ignorable="d"
+        Title="DriverWindow" Height="720" Width="1280"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <ScrollViewer>
+        <Grid Background="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500"/>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                <DataGrid x:Name="DGridDrivers" AutoGenerateColumns="False" IsReadOnly="True" Margin="16" VerticalGridLinesBrush="Gray" GridLinesVisibility="All" HorizontalGridLinesBrush="Gray" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding Firstname}" Width="100"/>
+                        <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}" Width="100"/>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding Lastname}" Width="100"/>
+                        <DataGridTextColumn Header="Серия паспорта" Binding="{Binding PassportSeries}" Width="100"/>
+                        <DataGridTextColumn Header="Номер паспорта" Binding="{Binding PassportNumber}" Width="100"/>
+                        <DataGridTextColumn Header="Регистрация" Binding="{Binding Registration}" Width="100"/>
+                        <DataGridTextColumn Header="Класс водителя" Binding="{Binding DriverClass}" Width="100"/>
+                        <DataGridTextColumn Header="Стаж работы" Binding="{Binding WorkExperience}" Width="100"/>
+                        <DataGridTextColumn Header="Оклад" Binding="{Binding Salary}" Width="100"/>
+                        <DataGridTemplateColumn Width="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Редактировать" Name="BtnEdit" Click="BtnEdit_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+            <Button Content="Добавить" HorizontalAlignment="Left" Name="BtnAdd" Click="BtnAdd_Click"/>
+            <Button Content="Удалить" HorizontalAlignment="Right" Name="BtnDelete" Click="BtnDelete_Click"/>
+        </Grid>
+    </ScrollViewer>
+</Window>

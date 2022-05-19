@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BusFleetManagerSystemDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="BusId" />
+          </Key>
+          <Property Name="BusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="int" Nullable="false" />
+          <Property Name="BusType_BusTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusRoute">
+          <Key>
+            <PropertyRef Name="BusRouteId" />
+          </Key>
+          <Property Name="BusRouteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RouteNumber" Type="int" Nullable="false" />
+          <Property Name="StartpointName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EndpointName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="MovementInterval" Type="int" Nullable="false" />
+          <Property Name="RouteLength" Type="int" Nullable="false" />
+          <Property Name="PointOfDeparture_DeparturePointId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusType">
+          <Key>
+            <PropertyRef Name="BusTypeId" />
+          </Key>
+          <Property Name="BusTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Capacity" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeparturePoint">
+          <Key>
+            <PropertyRef Name="DeparturePointId" />
+          </Key>
+          <Property Name="DeparturePointId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PointName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Lastname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PassportSeries" Type="int" Nullable="false" />
+          <Property Name="PassportNumber" Type="int" Nullable="false" />
+          <Property Name="Registration" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DriverClass" Type="int" Nullable="false" />
+          <Property Name="WorkExperience" Type="int" Nullable="false" />
+          <Property Name="Salary" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DriverBus">
+          <Key>
+            <PropertyRef Name="Driver_DriverId" />
+            <PropertyRef Name="Bus_BusId" />
+          </Key>
+          <Property Name="Driver_DriverId" Type="int" Nullable="false" />
+          <Property Name="Bus_BusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DriverBusRoute">
+          <Key>
+            <PropertyRef Name="Driver_DriverId" />
+            <PropertyRef Name="BusRoute_BusRouteId" />
+          </Key>
+          <Property Name="Driver_DriverId" Type="int" Nullable="false" />
+          <Property Name="BusRoute_BusRouteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DriverSchedule">
+          <Key>
+            <PropertyRef Name="Driver_DriverId" />
+            <PropertyRef Name="Schedule_ScheduleId" />
+          </Key>
+          <Property Name="Driver_DriverId" Type="int" Nullable="false" />
+          <Property Name="Schedule_ScheduleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="HoursWorked" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BusBusType">
+          <End Role="BusType" Type="Self.BusType" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusType">
+              <PropertyRef Name="BusTypeId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="BusType_BusTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRoutePointOfDeparture">
+          <End Role="DeparturePoint" Type="Self.DeparturePoint" Multiplicity="1" />
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeparturePoint">
+              <PropertyRef Name="DeparturePointId" />
+            </Principal>
+            <Dependent Role="BusRoute">
+              <PropertyRef Name="PointOfDeparture_DeparturePointId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverBus_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="DriverBus" Type="Self.DriverBus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="BusId" />
+            </Principal>
+            <Dependent Role="DriverBus">
+              <PropertyRef Name="Bus_BusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverBus_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="DriverBus" Type="Self.DriverBus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="DriverBus">
+              <PropertyRef Name="Driver_DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverBusRoute_BusRoute">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="DriverBusRoute" Type="Self.DriverBusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="BusRouteId" />
+            </Principal>
+            <Dependent Role="DriverBusRoute">
+              <PropertyRef Name="BusRoute_BusRouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverBusRoute_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="DriverBusRoute" Type="Self.DriverBusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="DriverBusRoute">
+              <PropertyRef Name="Driver_DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverSchedule_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="DriverSchedule" Type="Self.DriverSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="DriverSchedule">
+              <PropertyRef Name="Driver_DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverSchedule_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="DriverSchedule" Type="Self.DriverSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleId" />
+            </Principal>
+            <Dependent Role="DriverSchedule">
+              <PropertyRef Name="Schedule_ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BusFleetManagerSystemDBModelContainer">
+          <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusRoute" EntityType="Self.BusRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusType" EntityType="Self.BusType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeparturePoint" EntityType="Self.DeparturePoint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DriverBus" EntityType="Self.DriverBus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DriverBusRoute" EntityType="Self.DriverBusRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DriverSchedule" EntityType="Self.DriverSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BusBusType" Association="Self.FK_BusBusType">
+            <End Role="BusType" EntitySet="BusType" />
+            <End Role="Bus" EntitySet="Bus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRoutePointOfDeparture" Association="Self.FK_BusRoutePointOfDeparture">
+            <End Role="DeparturePoint" EntitySet="DeparturePoint" />
+            <End Role="BusRoute" EntitySet="BusRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverBus_Bus" Association="Self.FK_DriverBus_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="DriverBus" EntitySet="DriverBus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverBus_Driver" Association="Self.FK_DriverBus_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="DriverBus" EntitySet="DriverBus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverBusRoute_BusRoute" Association="Self.FK_DriverBusRoute_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoute" />
+            <End Role="DriverBusRoute" EntitySet="DriverBusRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverBusRoute_Driver" Association="Self.FK_DriverBusRoute_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="DriverBusRoute" EntitySet="DriverBusRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverSchedule_Driver" Association="Self.FK_DriverSchedule_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="DriverSchedule" EntitySet="DriverSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverSchedule_Schedule" Association="Self.FK_DriverSchedule_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="DriverSchedule" EntitySet="DriverSchedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BusFleetManagerSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="BusId" />
+          </Key>
+          <Property Name="BusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="Int32" Nullable="false" />
+          <Property Name="BusType_BusTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BusType" Relationship="Self.FK_BusBusType" FromRole="Bus" ToRole="BusType" />
+          <NavigationProperty Name="Drivers" Relationship="Self.DriverBus" FromRole="Bus" ToRole="Driver" />
+        </EntityType>
+        <EntityType Name="BusRoute">
+          <Key>
+            <PropertyRef Name="BusRouteId" />
+          </Key>
+          <Property Name="BusRouteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RouteNumber" Type="Int32" Nullable="false" />
+          <Property Name="StartpointName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EndpointName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="MovementInterval" Type="Int32" Nullable="false" />
+          <Property Name="RouteLength" Type="Int32" Nullable="false" />
+          <Property Name="PointOfDeparture_DeparturePointId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DeparturePoint" Relationship="Self.FK_BusRoutePointOfDeparture" FromRole="BusRoute" ToRole="DeparturePoint" />
+          <NavigationProperty Name="Drivers" Relationship="Self.DriverBusRoute" FromRole="BusRoute" ToRole="Driver" />
+        </EntityType>
+        <EntityType Name="BusType">
+          <Key>
+            <PropertyRef Name="BusTypeId" />
+          </Key>
+          <Property Name="BusTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Buses" Relationship="Self.FK_BusBusType" FromRole="BusType" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="DeparturePoint">
+          <Key>
+            <PropertyRef Name="DeparturePointId" />
+          </Key>
+          <Property Name="DeparturePointId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PointName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BusRoutes" Relationship="Self.FK_BusRoutePointOfDeparture" FromRole="DeparturePoint" ToRole="BusRoute" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportSeries" Type="Int32" Nullable="false" />
+          <Property Name="PassportNumber" Type="Int32" Nullable="false" />
+          <Property Name="Registration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DriverClass" Type="Int32" Nullable="false" />
+          <Property Name="WorkExperience" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Buses" Relationship="Self.DriverBus" FromRole="Driver" ToRole="Bus" />
+          <NavigationProperty Name="BusRoutes" Relationship="Self.DriverBusRoute" FromRole="Driver" ToRole="BusRoute" />
+          <NavigationProperty Name="Schedules" Relationship="Self.DriverSchedule" FromRole="Driver" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleId" />
+          </Key>
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HoursWorked" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Drivers" Relationship="Self.DriverSchedule" FromRole="Schedule" ToRole="Driver" />
+        </EntityType>
+        <Association Name="FK_BusBusType">
+          <End Role="BusType" Type="Self.BusType" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusType">
+              <PropertyRef Name="BusTypeId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="BusType_BusTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRoutePointOfDeparture">
+          <End Role="DeparturePoint" Type="Self.DeparturePoint" Multiplicity="1" />
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeparturePoint">
+              <PropertyRef Name="DeparturePointId" />
+            </Principal>
+            <Dependent Role="BusRoute">
+              <PropertyRef Name="PointOfDeparture_DeparturePointId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DriverBus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+        </Association>
+        <Association Name="DriverBusRoute">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+        </Association>
+        <Association Name="DriverSchedule">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BusFleetManagerSystemDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buses" EntityType="Self.Bus" />
+          <EntitySet Name="BusRoutes" EntityType="Self.BusRoute" />
+          <EntitySet Name="BusTypes" EntityType="Self.BusType" />
+          <EntitySet Name="DeparturePoints" EntityType="Self.DeparturePoint" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <AssociationSet Name="FK_BusBusType" Association="Self.FK_BusBusType">
+            <End Role="BusType" EntitySet="BusTypes" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRoutePointOfDeparture" Association="Self.FK_BusRoutePointOfDeparture">
+            <End Role="DeparturePoint" EntitySet="DeparturePoints" />
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="DriverBus" Association="Self.DriverBus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="DriverBusRoute" Association="Self.DriverBusRoute">
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="DriverSchedule" Association="Self.DriverSchedule">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BusFleetManagerSystemDBModelContainer" CdmEntityContainer="BusFleetManagerSystemDBEntities">
+          <EntitySetMapping Name="Buses">
+            <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.Bus">
+              <MappingFragment StoreEntitySet="Bus">
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="BusType_BusTypeId" ColumnName="BusType_BusTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusRoutes">
+            <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.BusRoute">
+              <MappingFragment StoreEntitySet="BusRoute">
+                <ScalarProperty Name="BusRouteId" ColumnName="BusRouteId" />
+                <ScalarProperty Name="RouteNumber" ColumnName="RouteNumber" />
+                <ScalarProperty Name="StartpointName" ColumnName="StartpointName" />
+                <ScalarProperty Name="EndpointName" ColumnName="EndpointName" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="MovementInterval" ColumnName="MovementInterval" />
+                <ScalarProperty Name="RouteLength" ColumnName="RouteLength" />
+                <ScalarProperty Name="PointOfDeparture_DeparturePointId" ColumnName="PointOfDeparture_DeparturePointId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusTypes">
+            <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.BusType">
+              <MappingFragment StoreEntitySet="BusType">
+                <ScalarProperty Name="BusTypeId" ColumnName="BusTypeId" />
+                <ScalarProperty Name="NameType" ColumnName="NameType" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeparturePoints">
+            <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.DeparturePoint">
+              <MappingFragment StoreEntitySet="DeparturePoint">
+                <ScalarProperty Name="DeparturePointId" ColumnName="DeparturePointId" />
+                <ScalarProperty Name="PointName" ColumnName="PointName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="Registration" ColumnName="Registration" />
+                <ScalarProperty Name="DriverClass" ColumnName="DriverClass" />
+                <ScalarProperty Name="WorkExperience" ColumnName="WorkExperience" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DriverBus" TypeName="BusFleetManagerSystemDBModel.DriverBus" StoreEntitySet="DriverBus">
+            <EndProperty Name="Bus">
+              <ScalarProperty Name="BusId" ColumnName="Bus_BusId" />
+            </EndProperty>
+            <EndProperty Name="Driver">
+              <ScalarProperty Name="DriverId" ColumnName="Driver_DriverId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="DriverBusRoute" TypeName="BusFleetManagerSystemDBModel.DriverBusRoute" StoreEntitySet="DriverBusRoute">
+            <EndProperty Name="BusRoute">
+              <ScalarProperty Name="BusRouteId" ColumnName="BusRoute_BusRouteId" />
+            </EndProperty>
+            <EndProperty Name="Driver">
+              <ScalarProperty Name="DriverId" ColumnName="Driver_DriverId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="DriverSchedule" TypeName="BusFleetManagerSystemDBModel.DriverSchedule" StoreEntitySet="DriverSchedule">
+            <EndProperty Name="Driver">
+              <ScalarProperty Name="DriverId" ColumnName="Driver_DriverId" />
+            </EndProperty>
+            <EndProperty Name="Schedule">
+              <ScalarProperty Name="ScheduleId" ColumnName="Schedule_ScheduleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

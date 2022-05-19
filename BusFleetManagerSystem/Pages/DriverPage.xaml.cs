@@ -1,6 +1,4 @@
-﻿using BusFleetManagerSystem.DataAccess;
-using BusFleetManagerSystem.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,24 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BusFleetManagerSystem
+namespace BusFleetManagerSystem.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для DriverPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DriverPage : Page
     {
-        public MainWindow()
+        public DriverPage()
         {
             InitializeComponent();
-
-
-        }
-
-        private void btnDriversWindow_Click(object sender, RoutedEventArgs e)
-        {
-            DriverWindow driverWindow = new DriverWindow();
-            driverWindow.Show();
         }
     }
 }
