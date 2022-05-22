@@ -15,28 +15,176 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <ScrollViewer>
-        <Grid Background="LightGray">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="500"/>
-                <RowDefinition Height="100*"/>
-            </Grid.RowDefinitions>
-            <ScrollViewer HorizontalScrollBarVisibility="Visible">
-                <DataGrid x:Name="DGridDrivers" AutoGenerateColumns="False" IsReadOnly="True" Margin="16" VerticalGridLinesBrush="Gray" GridLinesVisibility="All" HorizontalGridLinesBrush="Gray" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Имя" Binding="{Binding Firstname}" Width="100"/>
-                        <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}" Width="100"/>
-                        <DataGridTextColumn Header="Фамилия" Binding="{Binding Lastname}" Width="100"/>
-                        <DataGridTextColumn Header="Серия паспорта" Binding="{Binding PassportSeries}" Width="100"/>
-                        <DataGridTextColumn Header="Номер паспорта" Binding="{Binding PassportNumber}" Width="100"/>
-                        <DataGridTextColumn Header="Регистрация" Binding="{Binding Registration}" Width="100"/>
-                        <DataGridTextColumn Header="Класс водителя" Binding="{Binding DriverClass}" Width="100"/>
-                        <DataGridTextColumn Header="Стаж работы" Binding="{Binding WorkExperience}" Width="100"/>
-                        <DataGridTextColumn Header="Оклад" Binding="{Binding Salary}" Width="100"/>
+    <materialDesign:DialogHost
+            DialogClosing="Sample1_DialogHost_OnDialogClosing"
+            DialogTheme="Inherit">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Height="500">
+                <ScrollViewer Height="400" VerticalScrollBarVisibility="Visible">
+                    <Grid Margin="10" ScrollViewer.CanContentScroll="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="400"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:Card Grid.Row="0" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Имя" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="0" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="1" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Отчество" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="1" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="2" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Фамилия" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="2" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="3" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Серия паспорта" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="3" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="4" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Номер паспорта" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="4" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="5" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Регистрация" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="5" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="6" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Класс водителя" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="6" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="7" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Стаж работы" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="7" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="8" Grid.Column="0" Padding="10" Margin="16">
+                            <TextBlock Text="Оклад" Grid.Row="0" VerticalAlignment="Center"/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="8" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        <materialDesign:Card Grid.Row="8" Grid.Column="1" Padding="10" Margin="16">
+                            <TextBox/>
+                        </materialDesign:Card>
+                        
 
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ScrollViewer>
-        </Grid>
-    </ScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+                <StackPanel
+                    Grid.Row="9"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0 30 0 0">
+                    <Button
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        IsDefault="True"
+                        Margin="0 8 8 0"
+                        Content="Сохранить"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                True
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        IsCancel="True"
+                        Margin="0 8 8 0"
+                        Content="Отменить"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                False
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        <Border
+            BorderThickness="1"
+            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+            MinHeight="256"
+            ClipToBounds="True">
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                    <DataGrid x:Name="DGridDrivers" AutoGenerateColumns="False" IsReadOnly="False" Margin="30" GridLinesVisibility="Horizontal" VerticalGridLinesBrush="Gray" HorizontalGridLinesBrush="Gray" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Firstname}" Width="100"/>
+                            <DataGridTextColumn Header="Отчество" Binding="{Binding Surname}" Width="100"/>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Lastname}" Width="100"/>
+                            <DataGridTextColumn Header="Серия паспорта" Binding="{Binding PassportSeries}" Width="100"/>
+                            <DataGridTextColumn Header="Номер паспорта" Binding="{Binding PassportNumber}" Width="100"/>
+                            <DataGridTextColumn Header="Регистрация" Binding="{Binding Registration}" Width="100"/>
+                            <DataGridTextColumn Header="Класс водителя" Binding="{Binding DriverClass}" Width="100"/>
+                            <DataGridTextColumn Header="Стаж работы" Binding="{Binding WorkExperience}" Width="100"/>
+                            <DataGridTextColumn Header="Оклад" Binding="{Binding Salary}" Width="100"/>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Редактировать" Name="BtnEdit" Click="BtnEdit_Click"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Center"
+                                Grid.Column="0"
+                                Content="Добавить" />
+                        <Button Content="Удалить" x:Name="btnDelete" HorizontalAlignment="Center" Grid.Column="1" Click="btnDelete_Click"/>
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </materialDesign:DialogHost>
 </Page>

@@ -76,12 +76,6 @@
     <Compile Include="Pages\DriverPage.xaml.cs">
       <DependentUpon>DriverPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AddEditPage.xaml.cs">
-      <DependentUpon>AddEditPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\DriverWindow.xaml.cs">
-      <DependentUpon>DriverWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\WindowDemo.xaml.cs">
       <DependentUpon>WindowDemo.xaml</DependentUpon>
     </Compile>
@@ -134,14 +128,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AddEditPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\DriverWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\WindowDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,7 +167,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Icons\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="DataAccess\BusFleetManagerSystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

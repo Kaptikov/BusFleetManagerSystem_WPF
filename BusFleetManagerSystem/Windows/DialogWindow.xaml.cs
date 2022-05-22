@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace BusFleetManagerSystem.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AddEditPage.xaml
+    /// Логика взаимодействия для DialogWindow.xaml
     /// </summary>
-    public partial class AddEditPage : Window
+    public partial class DialogWindow : Window
     {
-        public AddEditPage()
+        public DialogWindow()
         {
             InitializeComponent();
-        }
-
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
