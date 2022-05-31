@@ -2,7 +2,6 @@
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -20,9 +19,9 @@ using System.Windows.Shapes;
 namespace BusFleetManagerSystem.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для DriverPage.xaml
+    /// Логика взаимодействия для BusPage.xaml
     /// </summary>
-    public partial class DriverPage : Page
+    public partial class BusPage : Page
     {
         private Driver _currentDriver = new Driver();
         /*public DriverPage(Driver selectedDriver)
@@ -38,7 +37,7 @@ namespace BusFleetManagerSystem.Pages
             //DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
         }*/
 
-        public DriverPage()
+        public BusPage()
         {
             InitializeComponent();
             DataContext = _currentDriver;
@@ -47,19 +46,19 @@ namespace BusFleetManagerSystem.Pages
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             var driversForRemoving = DGridDrivers.SelectedItems.Cast<Driver>().ToList();
-            
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {driversForRemoving.Count()} элементов?", "Внимание", 
+
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {driversForRemoving.Count()} элементов?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
@@ -257,7 +256,8 @@ namespace BusFleetManagerSystem.Pages
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
+
     }
 }

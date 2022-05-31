@@ -14,25 +14,240 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
+    <materialDesign:DialogHost
+        Identifier="RootDialog"
+        DialogTheme="Inherit"
+        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+
+        <materialDesign:DrawerHost
+            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="220">
+                    <ToggleButton 
+                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Right" 
+                        Margin="16"
+                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
+
+                    <TextBox 
+                        x:Name="DemoItemsSearchBox"
+                        Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                        DockPanel.Dock="Top"
+                        Margin="16, 4"
+                        Width="200"
+                        materialDesign:HintAssist.Hint="Search"
+                        materialDesign:HintAssist.IsFloating="True"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4"/>
+
+                    <ListBox 
+                        x:Name="DemoItemsListBox" 
+                        Margin="0 16 0 16"
+                        SelectedIndex="{Binding SelectedIndex}"
+                        SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding DemoItems}"
+                        PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
+                        AutomationProperties.Name="DemoPagesListBox"
+                        Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+                        </ListBox.Resources>
+                        <ListBoxItem>
+                            <Button x:Name="btnMainPage" Click="btnMainPage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="HomeCircle" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="Home" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                </StackPanel>
+                            </Button>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <Button x:Name="btnDriverPage" Click="btnDriverPage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="AccountTie" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="Driver" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                </StackPanel>
+                            </Button>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <Button x:Name="btnBusPage" Click="btnBusPage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="Bus" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="Buses" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                </StackPanel>
+                            </Button>
+                        </ListBoxItem>
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <materialDesign:ColorZone
+                Padding="20 15"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                Mode="PrimaryMid"
+                    Grid.Row="0">
+                    <DockPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <ToggleButton
+                                     x:Name="MenuToggleButton"
+                                    Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                    IsChecked="False"
+                                    Click="MenuToggleButton_OnClick"
+                                    AutomationProperties.Name="HamburgerToggleButton"/>
+
+                                <Button
+                                    Margin="24,0,0,0"
+                                    ToolTip="Previous Item"
+                                    Command="{Binding MovePrevCommand}"
+                                    Content="{materialDesign:PackIcon Kind=ArrowLeft, Size=24}"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"/>
+                                <Button 
+                                    Margin="16,0,0,0"
+                                    ToolTip="Next Item"
+                                    Command="{Binding MoveNextCommand}"
+                                    Content="{materialDesign:PackIcon Kind=ArrowRight, Size=24}"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"/>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button
+                                    Margin="1"
+                                    ToolTip="Home"
+                                    Click="btnMainPage_Click"
+                                    Command="{Binding HomeCommand}"
+                                    Content="{materialDesign:PackIcon Kind=Home, Size=24}"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    Foreground="{Binding (TextElement.Foreground), RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}}"
+                                    materialDesign:RippleAssist.Feedback="{Binding Foreground, Converter={StaticResource BrushRoundConverter}, RelativeSource={RelativeSource Self}}"/>
+                                <materialDesign:PopupBox
+                                    DockPanel.Dock="Right"
+                                    PlacementMode="BottomAndAlignRightEdges"
+                                    StaysOpen="True">
+                                    <StackPanel>
+                                        <Grid Margin="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                Text="Light"
+                                                Margin="0 0 10 0"/>
+                                            <ToggleButton
+                                                x:Name="DarkModeToggleButton"
+                                                Click="MenuDarkModeButton_Click"
+                                                Grid.Column="1"/>
+                                            <TextBlock
+                                                Text="Dark"
+                                                Margin="10 0 0 0"
+                                                Grid.Column="2"/>
+                                            <TextBlock
+                                                Text="Enabled"
+                                                Margin="0 10 10 0"
+                                                Grid.Row="1"/>
+                                            <ToggleButton
+                                                x:Name="ControlsEnabledToggleButton"
+                                                Margin="0 10 0 0"
+                                                IsChecked="{Binding ControlsEnabled}"
+                                                Grid.Row="1"
+                                                Grid.Column="1"/>
+                                        </Grid>
+
+                                        <Separator/>
+
+                                        <Button
+                                            Content="Hello World"
+                                            Click="MenuPopupButton_OnClick"/>
+
+                                        <Button
+                                            Content="Nice Popup"
+                                            Click="MenuPopupButton_OnClick"/>
+
+                                        <Button
+                                            Content="Can't Touch This"
+                                            IsEnabled="False"/>
+
+                                        <Separator/>
+                                        <Button
+                                            Content="Goodbye"
+                                            Click="MenuPopupButton_OnClick"/>
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                            </StackPanel>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="22"
+                                Text="Bus Fleet Manager System"/>
+                        </Grid>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer
+                        x:Name="MainScrollViewer"
+                        Grid.Row="1"
+                        materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
+                        HorizontalScrollBarVisibility="{Binding SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
+                        VerticalScrollBarVisibility="{Binding SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}" >
+                        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/MainPage.xaml" Grid.Row="1">
+
+                        </Frame>
+                    </ScrollViewer>
+                </Grid>
+                <Border BorderThickness="0 1 0 0" BorderBrush="Gray" Grid.Row="2">
+                    <Grid Margin="20 10" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left">Project by Kaptikov</TextBlock>
+                        <TextBlock HorizontalAlignment="Right">https://github.com/Kaptikov</TextBlock>
+                    </Grid>
+                </Border>
+            </Grid>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
+    <!--<Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Column="0">
+        <Border BorderBrush="Gray" BorderThickness="0 0 0 1">
+            <DockPanel Grid.Row="0">
+            
             <materialDesign:ColorZone
-                Padding="16"
+                Padding="20 15"
                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
                 Mode="PrimaryMid"
                 DockPanel.Dock="Top">
                 <DockPanel>
+                    <Grid>
                     <StackPanel Orientation="Horizontal">
                         <ToggleButton
                             x:Name="MenuToggleButton"
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}"
                                 IsChecked="False"/>
-                        <!--Click="MenuToggleButton_OnClick"
-                                AutomationProperties.Name="HamburgerToggleButton"-->
+                        Click="MenuToggleButton_OnClick"
+                                AutomationProperties.Name="HamburgerToggleButton"
 
                         <Button
                             Margin="24,0,0,0"
@@ -51,89 +266,91 @@
                             Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                             materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"/>
 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button
-                            Margin="16,0,0,0"
+                            Margin="1"
                             ToolTip="Home"
                             Command="{Binding HomeCommand}"
                             Content="{materialDesign:PackIcon Kind=Home, Size=24}"
                             Style="{StaticResource MaterialDesignToolButton}"
-                            Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
-                            materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"/>
-                    </StackPanel>
-
-                    <materialDesign:PopupBox
+                            Foreground="{Binding (TextElement.Foreground), RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}}"
+                            materialDesign:RippleAssist.Feedback="{Binding Foreground, Converter={StaticResource BrushRoundConverter}, RelativeSource={RelativeSource Self}}"/>
+                        <materialDesign:PopupBox
                             DockPanel.Dock="Right"
                             PlacementMode="BottomAndAlignRightEdges"
                             StaysOpen="True">
-                        <StackPanel>
-                            <Grid Margin="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <TextBlock
+                            <StackPanel>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
                                     Text="Light"
                                     Margin="0 0 10 0"/>
-                                <ToggleButton
+                                    <ToggleButton
                                     x:Name="DarkModeToggleButton"
                                     Click="MenuDarkModeButton_Click"
                                     Grid.Column="1"/>
-                                <!--Click="MenuDarkModeButton_Click"-->
-                                <TextBlock
+                                    Click="MenuDarkModeButton_Click"
+                                    <TextBlock
                                     Text="Dark"
                                     Margin="10 0 0 0"
                                     Grid.Column="2"/>
-                                <TextBlock
+                                    <TextBlock
                                     Text="Enabled"
                                     Margin="0 10 10 0"
                                     Grid.Row="1"/>
-                                <ToggleButton
+                                    <ToggleButton
                                     x:Name="ControlsEnabledToggleButton"
                                     Margin="0 10 0 0"
                                     IsChecked="{Binding ControlsEnabled}"
                                     Grid.Row="1"
                                     Grid.Column="1"/>
-                            </Grid>
+                                </Grid>
 
-                            <Separator/>
+                                <Separator/>
 
-                            <Button
+                                <Button
                                 Content="Hello World"/>
-                            <!--Click="MenuPopupButton_OnClick"-->
+                                Click="MenuPopupButton_OnClick"
 
-                            <Button
+                                <Button
                                 Content="Nice Popup"/>
-                            <!--Click="MenuPopupButton_OnClick"-->
+                                Click="MenuPopupButton_OnClick"
 
-                            <Button
+                                <Button
                                 Content="Can't Touch This"
                                 IsEnabled="False"/>
 
-                            <Separator/>
-                            <Button
+                                <Separator/>
+                                <Button
                                 Content="Goodbye"/>
-                            <!--Click="MenuPopupButton_OnClick"-->
-                        </StackPanel>
-                    </materialDesign:PopupBox>
-
+                                Click="MenuPopupButton_OnClick"
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </StackPanel>
                     <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="22"
-                            Margin="-152,0,0,0"
-                            Text="Авторизация"/>
+                            Text="Bus Fleet Manager System"/>
+                    </Grid>
                 </DockPanel>
             </materialDesign:ColorZone>
+            
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
 
 
@@ -144,11 +361,10 @@
                         HorizontalScrollBarVisibility="{Binding SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
                         VerticalScrollBarVisibility="{Binding SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}" >
                     <ContentControl
-                            
                             DataContext="{Binding SelectedItem}"
                             Margin="{Binding MarginRequirement, FallbackValue=16}"
                             Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}"/>
-                    <!--DataContextChanged="OnSelectedItemChanged"-->
+                    DataContextChanged="OnSelectedItemChanged"
                 </ScrollViewer>
 
                 <materialDesign:Snackbar
@@ -157,10 +373,17 @@
                     Grid.Row="1"/>
             </Grid>
         </DockPanel>
+        </Border>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/DriverPage.xaml" Grid.Row="1">
-            
+
         </Frame>
-        
-    </Grid>
+
+        <Border BorderThickness="0 1 0 0" BorderBrush="Gray" Grid.Row="2">
+            <Grid Margin="20 10" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Left">Project by Kaptikov</TextBlock>
+                <TextBlock HorizontalAlignment="Right">https://github.com/Kaptikov</TextBlock>
+            </Grid>
+        </Border>
+    </Grid>-->
 </Window>
 
