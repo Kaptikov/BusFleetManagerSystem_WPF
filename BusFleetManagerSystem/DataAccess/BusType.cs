@@ -22,7 +22,7 @@ namespace BusFleetManagerSystem.DataAccess
     
         public int BusTypeId { get; set; }
         public string NameType { get; set; }
-        public string Capacity { get; set; }
+        public int Capacity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bus> Buses { get; set; }

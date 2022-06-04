@@ -27,7 +27,7 @@ namespace BusFleetManagerSystem.DataAccess
                 _context = new BusFleetManagerSystemDBEntities();
             return _context;
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -39,5 +39,6 @@ namespace BusFleetManagerSystem.DataAccess
         public virtual DbSet<DeparturePoint> DeparturePoints { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

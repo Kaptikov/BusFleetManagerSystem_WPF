@@ -21,7 +21,7 @@ namespace BusFleetManagerSystem.DataAccess
         }
     
         public int BusId { get; set; }
-        public int RegistrationNumber { get; set; }
+        public string BusNumber { get; set; }
         public int BusType_BusTypeId { get; set; }
     
         public virtual BusType BusType { get; set; }

@@ -23,25 +23,16 @@ namespace BusFleetManagerSystem.Pages
     /// </summary>
     public partial class BusPage : Page
     {
-        private Driver _currentDriver = new Driver();
-        /*public DriverPage(Driver selectedDriver)
-        {
-            InitializeComponent();
-
-            if (selectedDriver != null)
-            {
-                _currentDriver = selectedDriver;
-            }
-
-            DataContext = _currentDriver;
-            //DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
-        }*/
-
+        private Bus _currentBus = new Bus();
+        private BusType _currentBusType = new BusType();
+        //public string Bus { get { return Tag + " (" + Location.Name + ")"; } }
         public BusPage()
         {
             InitializeComponent();
-            DataContext = _currentDriver;
-            DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
+            DataContext = _currentBus;
+            DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
+            //ComboBoxBusTypeIdUpdate.ItemSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
+            ComboBoxBusTypeId.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().BusTypes.ToList();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -56,18 +47,18 @@ namespace BusFleetManagerSystem.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var driversForRemoving = DGridDrivers.SelectedItems.Cast<Driver>().ToList();
+            var busesForRemoving = DGridBuses.SelectedItems.Cast<Bus>().ToList();
 
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {driversForRemoving.Count()} элементов?", "Внимание",
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {busesForRemoving.Count()} элементов?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    BusFleetManagerSystemDBEntities.GetContext().Drivers.RemoveRange(driversForRemoving);
+                    BusFleetManagerSystemDBEntities.GetContext().Buses.RemoveRange(busesForRemoving);
                     BusFleetManagerSystemDBEntities.GetContext().SaveChanges();
                     MessageBox.Show("Данные удалены!");
 
-                    DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
+                    DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
                 }
                 catch (Exception ex)
                 {
@@ -80,56 +71,7 @@ namespace BusFleetManagerSystem.Pages
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder errors = new StringBuilder();
-            /*if (string.IsNullOrWhiteSpace(_currentDriver.Firstname))
-            {
-                errors.AppendLine("Укажите имя!");
-            }
-
-            if (string.IsNullOrWhiteSpace(_currentDriver.Lastname))
-            {
-                errors.AppendLine("Укажите фамилию!");
-            }
-
-            if (string.IsNullOrWhiteSpace(_currentDriver.Registration))
-            {
-                errors.AppendLine("Укажите регистрацию!");
-            }
-
-            if (string.IsNullOrWhiteSpace(_currentDriver.Registration))
-            {
-                errors.AppendLine("Укажите оклад!");
-            }
-
-            if (_currentDriver.PassportSeries < 4)
-            {
-                errors.AppendLine("Некорректная серия паспорта");
-            }
-
-            if (_currentDriver.PassportNumber < 6 || _currentDriver.PassportNumber > 6)
-            {
-                errors.AppendLine("Некорректный номер паспорта");
-            }
-
-            if (_currentDriver.DriverClass < 1 || _currentDriver.DriverClass > 3)
-            {
-                errors.AppendLine("Некорректный класс водителя");
-            }
-
-            if (_currentDriver.WorkExperience < 5)
-            {
-                errors.AppendLine("Некорректный стаж работы");
-            }
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
-
-            if (_currentDriver.DriverId == 0)
-            {
-                BusFleetManagerSystemDBEntities.GetContext().Drivers.Add(_currentDriver);
-            }*/
+            
             try
             {
                 BusFleetManagerSystemDBEntities.GetContext().SaveChanges();
@@ -155,45 +97,7 @@ namespace BusFleetManagerSystem.Pages
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder errors = new StringBuilder();
-            if (string.IsNullOrWhiteSpace(_currentDriver.Firstname))
-            {
-                errors.AppendLine("Укажите имя!");
-            }
 
-            if (string.IsNullOrWhiteSpace(_currentDriver.Lastname))
-            {
-                errors.AppendLine("Укажите фамилию!");
-            }
-
-            if (string.IsNullOrWhiteSpace(_currentDriver.Registration))
-            {
-                errors.AppendLine("Укажите регистрацию!");
-            }
-
-            if (string.IsNullOrWhiteSpace(_currentDriver.Registration))
-            {
-                errors.AppendLine("Укажите оклад!");
-            }
-            /*
-            if (_currentDriver.PassportSeries < 4 || )
-            {
-                errors.AppendLine("Некорректная серия паспорта");
-            }
-
-            if (_currentDriver.PassportNumber < 6 || _currentDriver.PassportNumber > 6)
-            {
-                errors.AppendLine("Некорректный номер паспорта");
-            }*/
-
-            if (_currentDriver.DriverClass < 1 || _currentDriver.DriverClass > 3)
-            {
-                errors.AppendLine("Некорректный класс водителя");
-            }
-
-            if (_currentDriver.WorkExperience < 5)
-            {
-                errors.AppendLine("Некорректный стаж работы");
-            }
 
             if (errors.Length > 0)
             {
@@ -201,36 +105,24 @@ namespace BusFleetManagerSystem.Pages
                 return;
             }
 
-            if (_currentDriver.DriverId == 0)
+            if (_currentBus.BusId == 0)
             {
-                Driver driver = new Driver();
-                driver.Firstname = _currentDriver.Firstname;
-                driver.Surname = _currentDriver.Surname;
-                driver.Lastname = _currentDriver.Lastname;
-                driver.PassportSeries = _currentDriver.PassportSeries;
-                driver.PassportNumber = _currentDriver.PassportNumber;
-                driver.Registration = _currentDriver.Registration;
-                driver.DriverClass = _currentDriver.DriverClass;
-                driver.WorkExperience = _currentDriver.WorkExperience;
-                driver.Salary = _currentDriver.Salary;
-                BusFleetManagerSystemDBEntities.GetContext().Drivers.Add(driver);
+                Bus bus = new Bus();
+                bus.BusNumber = _currentBus.BusNumber;
+                BusFleetManagerSystemDBEntities.GetContext().Buses.Add(bus);
+
+                BusType type = new BusType();
+                type.BusTypeId = _currentBusType.BusTypeId;
+                BusFleetManagerSystemDBEntities.GetContext().BusTypes.Add(type);
             }
             try
             {
                 var db = BusFleetManagerSystemDBEntities.GetContext();
                 BusFleetManagerSystemDBEntities.GetContext().SaveChanges();
                 MessageBox.Show("Данные сохранены!");
-                DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
-                textBoxFirstname.Clear();
-                textBoxSurname.Clear();
-                textBoxLastname.Clear();
-                textBoxPassportSeries.Clear();
-                textBoxPassportNumber.Clear();
-                textBoxRegistration.Clear();
-                textBoxDriverClass.Clear();
-                textBoxWorkExperience.Clear();
-                textBoxSalary.Clear();
-                //DialogHost.Close(DialogWindow.DialogContent);
+                DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
+                //DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().BusTypes.ToList();
+                textBoxBusNumber.Clear();
             }
             catch (Exception ex)
             {
@@ -251,12 +143,8 @@ namespace BusFleetManagerSystem.Pages
             if (Visibility == Visibility.Visible)
             {
                 BusFleetManagerSystemDBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
+                DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
             }
-        }
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
     }
