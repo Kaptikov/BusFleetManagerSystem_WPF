@@ -25,6 +25,7 @@ namespace BusFleetManagerSystem.DataAccess
         {
             if (_context == null)
                 _context = new BusFleetManagerSystemDBEntities();
+
             return _context;
         }
 

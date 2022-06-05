@@ -81,6 +81,11 @@ namespace BusFleetManagerSystem
         {
             MainFrame.Content = new BusPage();
         }
+
+        private void btnDriverBusPage_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new BusDriverPage();
+        }
         /*private void btnLogin_Click(object sender, RoutedEventArgs e)
 {
 string login = textBoxLogin.Text.Trim();

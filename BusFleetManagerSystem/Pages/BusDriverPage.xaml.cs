@@ -19,21 +19,21 @@ using System.Windows.Shapes;
 namespace BusFleetManagerSystem.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для BusPage.xaml
+    /// Логика взаимодействия для BusDriverPage.xaml
     /// </summary>
-    public partial class BusPage : Page
+    public partial class BusDriverPage : Page
     {
         private Bus _currentBus = new Bus();
+        private Driver _currentDriver = new Driver();
 
-        private BusType _currentBusType = new BusType();
         //public string Bus { get { return Tag + " (" + Location.Name + ")"; } }
-        public BusPage()
+        public BusDriverPage()
         {
             InitializeComponent();
             DataContext = _currentBus;
-            DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
+            DGridBusDriver.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
             //ComboBoxBusTypeIdUpdate.ItemSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
-            ComboBoxBusTypeId.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().BusTypes.ToList();
+            ComboBoxBusNumberUpdate.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
             //ComboBoxBusTypeId.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().BusTypes.ToList();
         }
 
@@ -49,18 +49,18 @@ namespace BusFleetManagerSystem.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var busesForRemoving = DGridBuses.SelectedItems.Cast<Bus>().ToList();
+            var driversForRemoving = DGridBusDriver.SelectedItems.Cast<Driver>().ToList();
 
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {busesForRemoving.Count()} элементов?", "Внимание",
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {driversForRemoving.Count()} элементов?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    BusFleetManagerSystemDBEntities.GetContext().Buses.RemoveRange(busesForRemoving);
+                    BusFleetManagerSystemDBEntities.GetContext().Drivers.RemoveRange(driversForRemoving);
                     BusFleetManagerSystemDBEntities.GetContext().SaveChanges();
                     MessageBox.Show("Данные удалены!");
 
-                    DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
+                    DGridBusDriver.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
                 }
                 catch (Exception ex)
                 {
@@ -73,22 +73,11 @@ namespace BusFleetManagerSystem.Pages
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder errors = new StringBuilder();
-            
+
             try
             {
                 BusFleetManagerSystemDBEntities.GetContext().SaveChanges();
                 MessageBox.Show("Данные обнавлены!");
-                //DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
-                /*textBoxFirstname.Clear();
-                textBoxSurname.Clear();
-                textBoxLastname.Clear();
-                textBoxPassportSeries.Clear();
-                textBoxPassportNumber.Clear();
-                textBoxRegistration.Clear();
-                textBoxDriverClass.Clear();
-                textBoxWorkExperience.Clear();
-                textBoxSalary.Clear();*/
-                //DialogHost.Close(DialogWindow.DialogContent);
             }
             catch (Exception ex)
             {
@@ -110,22 +99,26 @@ namespace BusFleetManagerSystem.Pages
             if (_currentBus.BusId == 0)
             {
                 Bus bus = new Bus();
-                BusType type = new BusType();
+                //BusType type = new BusType();
                 bus.BusNumber = _currentBus.BusNumber;
-                type.BusTypeId = _currentBusType.BusTypeId;
                 BusFleetManagerSystemDBEntities.GetContext().Buses.Add(bus);
+
+                Driver driver = new Driver();
+                //BusType type = new BusType();
+                //driver.BusNumber = _currentDriver.BusNumber;
+                BusFleetManagerSystemDBEntities.GetContext().Drivers.Add(_currentDriver);
 
                 //BusType type = new BusType();
                 //type.BusTypeId = _currentBusType.BusTypeId;
-                BusFleetManagerSystemDBEntities.GetContext().Buses.Add(_currentBus);
+                //BusFleetManagerSystemDBEntities.GetContext().Buses.Add(_currentBus);
             }
             try
             {
                 var db = BusFleetManagerSystemDBEntities.GetContext();
                 BusFleetManagerSystemDBEntities.GetContext().SaveChanges();
                 MessageBox.Show("Данные сохранены!");
-                DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
-                textBoxBusNumber.Clear();
+                DGridBusDriver.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
+                //textBoxBusNumber.Clear();
             }
             catch (Exception ex)
             {
@@ -146,9 +139,8 @@ namespace BusFleetManagerSystem.Pages
             if (Visibility == Visibility.Visible)
             {
                 BusFleetManagerSystemDBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                DGridBuses.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
+                DGridBusDriver.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
             }
         }
-
     }
 }

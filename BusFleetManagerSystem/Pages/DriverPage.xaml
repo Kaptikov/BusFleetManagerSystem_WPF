@@ -320,6 +320,7 @@
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
                                             <materialDesign:Card Grid.Row="0" Grid.Column="0" Padding="10" Margin="16">
                                                 <TextBlock Text="Имя" Grid.Row="0" VerticalAlignment="Center"/>
@@ -374,6 +375,12 @@
                                             </materialDesign:Card>
                                             <materialDesign:Card Grid.Row="8" Grid.Column="1" Padding="10" Margin="16">
                                                 <TextBox x:Name="textBoxSalary" Text ="{Binding Salary}"/>
+                                            </materialDesign:Card>
+                                            <materialDesign:Card Grid.Row="9" Grid.Column="0" Padding="10" Margin="16">
+                                                <TextBlock Text="Автобус" Grid.Row="0" VerticalAlignment="Center"/>
+                                            </materialDesign:Card>
+                                            <materialDesign:Card Grid.Row="9" Grid.Column="1" Padding="10" Margin="16">
+                                                <TextBox x:Name="ComboBoxBusNumber" Text ="{Binding Bus_BusId}"/>
                                             </materialDesign:Card>
                                         </Grid>
                                     </ScrollViewer>

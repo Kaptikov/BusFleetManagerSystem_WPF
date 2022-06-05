@@ -12,14 +12,7 @@
           <Property Name="BusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BusNumber" Type="nvarchar(max)" Nullable="false" />
           <Property Name="BusType_BusTypeId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="BusDriver">
-          <Key>
-            <PropertyRef Name="Bus_BusId" />
-            <PropertyRef Name="Driver_DriverId" />
-          </Key>
-          <Property Name="Bus_BusId" Type="int" Nullable="false" />
-          <Property Name="Driver_DriverId" Type="int" Nullable="false" />
+          <Property Name="BusRoute_BusRouteId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BusRoute">
           <Key>
@@ -64,6 +57,7 @@
           <Property Name="DriverClass" Type="int" Nullable="false" />
           <Property Name="WorkExperience" Type="int" Nullable="false" />
           <Property Name="Salary" Type="bigint" Nullable="false" />
+          <Property Name="Bus_BusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DriverBusRoute">
           <Key>
@@ -73,14 +67,6 @@
           <Property Name="BusRoute_BusRouteId" Type="int" Nullable="false" />
           <Property Name="Driver_DriverId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Driverchedule">
-          <Key>
-            <PropertyRef Name="Driver_DriverId" />
-            <PropertyRef Name="Schedule_ScheduleId" />
-          </Key>
-          <Property Name="Driver_DriverId" Type="int" Nullable="false" />
-          <Property Name="Schedule_ScheduleId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="ScheduleId" />
@@ -88,8 +74,9 @@
           <Property Name="ScheduleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="HoursWorked" Type="int" Nullable="false" />
+          <Property Name="Driver_DriverId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
@@ -109,27 +96,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BusDriver_Bus">
+        <Association Name="FK_BusDriver">
           <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
-          <End Role="BusDriver" Type="Self.BusDriver" Multiplicity="*" />
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bus">
               <PropertyRef Name="BusId" />
             </Principal>
-            <Dependent Role="BusDriver">
+            <Dependent Role="Driver">
               <PropertyRef Name="Bus_BusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BusDriver_Driver">
-          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
-          <End Role="BusDriver" Type="Self.BusDriver" Multiplicity="*" />
+        <Association Name="FK_BusRouteBus">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Driver">
-              <PropertyRef Name="DriverId" />
+            <Principal Role="BusRoute">
+              <PropertyRef Name="BusRouteId" />
             </Principal>
-            <Dependent Role="BusDriver">
-              <PropertyRef Name="Driver_DriverId" />
+            <Dependent Role="Bus">
+              <PropertyRef Name="BusRoute_BusRouteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -169,52 +156,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Driverchedule_Driver">
+        <Association Name="FK_Driverchedule">
           <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
-          <End Role="Driverchedule" Type="Self.Driverchedule" Multiplicity="*" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Driver">
               <PropertyRef Name="DriverId" />
             </Principal>
-            <Dependent Role="Driverchedule">
+            <Dependent Role="Schedule">
               <PropertyRef Name="Driver_DriverId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Driverchedule_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="Driverchedule" Type="Self.Driverchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="ScheduleId" />
-            </Principal>
-            <Dependent Role="Driverchedule">
-              <PropertyRef Name="Schedule_ScheduleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище BusFleetManagerSystemDBModelContainer">
           <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BusDriver" EntityType="Self.BusDriver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusRoute" EntityType="Self.BusRoute" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusType" EntityType="Self.BusType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeparturePoint" EntityType="Self.DeparturePoint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DriverBusRoute" EntityType="Self.DriverBusRoute" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Driverchedule" EntityType="Self.Driverchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BusBusType" Association="Self.FK_BusBusType">
             <End Role="BusType" EntitySet="BusType" />
             <End Role="Bus" EntitySet="Bus" />
           </AssociationSet>
-          <AssociationSet Name="FK_BusDriver_Bus" Association="Self.FK_BusDriver_Bus">
+          <AssociationSet Name="FK_BusDriver" Association="Self.FK_BusDriver">
             <End Role="Bus" EntitySet="Bus" />
-            <End Role="BusDriver" EntitySet="BusDriver" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BusDriver_Driver" Association="Self.FK_BusDriver_Driver">
             <End Role="Driver" EntitySet="Driver" />
-            <End Role="BusDriver" EntitySet="BusDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteBus" Association="Self.FK_BusRouteBus">
+            <End Role="BusRoute" EntitySet="BusRoute" />
+            <End Role="Bus" EntitySet="Bus" />
           </AssociationSet>
           <AssociationSet Name="FK_BusRoutePointOfDeparture" Association="Self.FK_BusRoutePointOfDeparture">
             <End Role="DeparturePoint" EntitySet="DeparturePoint" />
@@ -228,13 +201,9 @@
             <End Role="Driver" EntitySet="Driver" />
             <End Role="DriverBusRoute" EntitySet="DriverBusRoute" />
           </AssociationSet>
-          <AssociationSet Name="FK_Driverchedule_Driver" Association="Self.FK_Driverchedule_Driver">
+          <AssociationSet Name="FK_Driverchedule" Association="Self.FK_Driverchedule">
             <End Role="Driver" EntitySet="Driver" />
-            <End Role="Driverchedule" EntitySet="Driverchedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Driverchedule_Schedule" Association="Self.FK_Driverchedule_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="Driverchedule" EntitySet="Driverchedule" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -249,8 +218,10 @@
           <Property Name="BusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BusNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BusType_BusTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BusRoute_BusRouteId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BusType" Relationship="Self.FK_BusBusType" FromRole="Bus" ToRole="BusType" />
-          <NavigationProperty Name="Drivers" Relationship="Self.BusDriver" FromRole="Bus" ToRole="Driver" />
+          <NavigationProperty Name="Drivers" Relationship="Self.FK_BusDriver" FromRole="Bus" ToRole="Driver" />
+          <NavigationProperty Name="BusRoute" Relationship="Self.FK_BusRouteBus" FromRole="Bus" ToRole="BusRoute" />
         </EntityType>
         <EntityType Name="BusRoute">
           <Key>
@@ -265,6 +236,7 @@
           <Property Name="MovementInterval" Type="Int32" Nullable="false" />
           <Property Name="RouteLength" Type="Int32" Nullable="false" />
           <Property Name="PointOfDeparture_DeparturePointId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Buses" Relationship="Self.FK_BusRouteBus" FromRole="BusRoute" ToRole="Bus" />
           <NavigationProperty Name="DeparturePoint" Relationship="Self.FK_BusRoutePointOfDeparture" FromRole="BusRoute" ToRole="DeparturePoint" />
           <NavigationProperty Name="Drivers" Relationship="Self.DriverBusRoute" FromRole="BusRoute" ToRole="Driver" />
         </EntityType>
@@ -299,9 +271,10 @@
           <Property Name="DriverClass" Type="Int32" Nullable="false" />
           <Property Name="WorkExperience" Type="Int32" Nullable="false" />
           <Property Name="Salary" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Buses" Relationship="Self.BusDriver" FromRole="Driver" ToRole="Bus" />
+          <Property Name="Bus_BusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bus" Relationship="Self.FK_BusDriver" FromRole="Driver" ToRole="Bus" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Driverchedule" FromRole="Driver" ToRole="Schedule" />
           <NavigationProperty Name="BusRoutes" Relationship="Self.DriverBusRoute" FromRole="Driver" ToRole="BusRoute" />
-          <NavigationProperty Name="Schedules" Relationship="Self.Driverchedule" FromRole="Driver" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -310,7 +283,8 @@
           <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="HoursWorked" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Drivers" Relationship="Self.Driverchedule" FromRole="Schedule" ToRole="Driver" />
+          <Property Name="Driver_DriverId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_Driverchedule" FromRole="Schedule" ToRole="Driver" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -332,6 +306,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BusDriver">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="BusId" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="Bus_BusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteBus">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="BusRouteId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="BusRoute_BusRouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BusRoutePointOfDeparture">
           <End Role="DeparturePoint" Type="Self.DeparturePoint" Multiplicity="1" />
           <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
@@ -344,17 +342,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BusDriver">
-          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
-          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
+        <Association Name="FK_Driverchedule">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="Driver_DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="DriverBusRoute">
           <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
           <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
-        </Association>
-        <Association Name="Driverchedule">
-          <End Role="Driver" Type="Self.Driver" Multiplicity="*" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
         </Association>
         <EntityContainer Name="BusFleetManagerSystemDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Buses" EntityType="Self.Bus" />
@@ -368,21 +370,25 @@
             <End Role="BusType" EntitySet="BusTypes" />
             <End Role="Bus" EntitySet="Buses" />
           </AssociationSet>
+          <AssociationSet Name="FK_BusDriver" Association="Self.FK_BusDriver">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteBus" Association="Self.FK_BusRouteBus">
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
           <AssociationSet Name="FK_BusRoutePointOfDeparture" Association="Self.FK_BusRoutePointOfDeparture">
             <End Role="DeparturePoint" EntitySet="DeparturePoints" />
             <End Role="BusRoute" EntitySet="BusRoutes" />
           </AssociationSet>
-          <AssociationSet Name="BusDriver" Association="Self.BusDriver">
-            <End Role="Bus" EntitySet="Buses" />
+          <AssociationSet Name="FK_Driverchedule" Association="Self.FK_Driverchedule">
             <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <AssociationSet Name="DriverBusRoute" Association="Self.DriverBusRoute">
             <End Role="BusRoute" EntitySet="BusRoutes" />
             <End Role="Driver" EntitySet="Drivers" />
-          </AssociationSet>
-          <AssociationSet Name="Driverchedule" Association="Self.Driverchedule">
-            <End Role="Driver" EntitySet="Drivers" />
-            <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -397,6 +403,7 @@
                 <ScalarProperty Name="BusId" ColumnName="BusId" />
                 <ScalarProperty Name="BusNumber" ColumnName="BusNumber" />
                 <ScalarProperty Name="BusType_BusTypeId" ColumnName="BusType_BusTypeId" />
+                <ScalarProperty Name="BusRoute_BusRouteId" ColumnName="BusRoute_BusRouteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -445,6 +452,7 @@
                 <ScalarProperty Name="DriverClass" ColumnName="DriverClass" />
                 <ScalarProperty Name="WorkExperience" ColumnName="WorkExperience" />
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Bus_BusId" ColumnName="Bus_BusId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -454,40 +462,25 @@
                 <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="Driver_DriverId" ColumnName="Driver_DriverId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="BusFleetManagerSystemDBModel.User">
-              <MappingFragment StoreEntitySet="User">
+              <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="BusDriver" TypeName="BusFleetManagerSystemDBModel.BusDriver" StoreEntitySet="BusDriver">
-            <EndProperty Name="Bus">
-              <ScalarProperty Name="BusId" ColumnName="Bus_BusId" />
-            </EndProperty>
-            <EndProperty Name="Driver">
-              <ScalarProperty Name="DriverId" ColumnName="Driver_DriverId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="DriverBusRoute" TypeName="BusFleetManagerSystemDBModel.DriverBusRoute" StoreEntitySet="DriverBusRoute">
             <EndProperty Name="BusRoute">
               <ScalarProperty Name="BusRouteId" ColumnName="BusRoute_BusRouteId" />
             </EndProperty>
             <EndProperty Name="Driver">
               <ScalarProperty Name="DriverId" ColumnName="Driver_DriverId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Driverchedule" TypeName="BusFleetManagerSystemDBModel.Driverchedule" StoreEntitySet="Driverchedule">
-            <EndProperty Name="Driver">
-              <ScalarProperty Name="DriverId" ColumnName="Driver_DriverId" />
-            </EndProperty>
-            <EndProperty Name="Schedule">
-              <ScalarProperty Name="ScheduleId" ColumnName="Schedule_ScheduleId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

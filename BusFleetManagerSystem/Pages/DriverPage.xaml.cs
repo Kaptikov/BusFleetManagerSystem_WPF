@@ -25,6 +25,8 @@ namespace BusFleetManagerSystem.Pages
     public partial class DriverPage : Page
     {
         private Driver _currentDriver = new Driver();
+
+        private Bus _currentDriverBus = new Bus();
         /*public DriverPage(Driver selectedDriver)
         {
             InitializeComponent();
@@ -43,6 +45,7 @@ namespace BusFleetManagerSystem.Pages
             InitializeComponent();
             DataContext = _currentDriver;
             DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
+            //ComboBoxBusNumber.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Buses.ToList();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -214,6 +217,8 @@ namespace BusFleetManagerSystem.Pages
                 driver.DriverClass = _currentDriver.DriverClass;
                 driver.WorkExperience = _currentDriver.WorkExperience;
                 driver.Salary = _currentDriver.Salary;
+                _currentDriverBus.BusId = driver.Bus_BusId;
+
                 BusFleetManagerSystemDBEntities.GetContext().Drivers.Add(driver);
             }
             try

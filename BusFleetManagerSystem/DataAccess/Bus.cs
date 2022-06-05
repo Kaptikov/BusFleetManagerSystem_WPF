@@ -23,9 +23,11 @@ namespace BusFleetManagerSystem.DataAccess
         public int BusId { get; set; }
         public string BusNumber { get; set; }
         public int BusType_BusTypeId { get; set; }
+        public int BusRoute_BusRouteId { get; set; }
     
         public virtual BusType BusType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Driver> Drivers { get; set; }
+        public virtual BusRoute BusRoute { get; set; }
     }
 }

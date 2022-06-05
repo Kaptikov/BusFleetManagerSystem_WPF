@@ -17,6 +17,7 @@ namespace BusFleetManagerSystem.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BusRoute()
         {
+            this.Buses = new HashSet<Bus>();
             this.Drivers = new HashSet<Driver>();
         }
     
@@ -30,6 +31,8 @@ namespace BusFleetManagerSystem.DataAccess
         public int RouteLength { get; set; }
         public int PointOfDeparture_DeparturePointId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bus> Buses { get; set; }
         public virtual DeparturePoint DeparturePoint { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Driver> Drivers { get; set; }

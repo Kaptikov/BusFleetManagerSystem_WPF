@@ -1,4 +1,4 @@
-﻿<Page x:Class="BusFleetManagerSystem.Pages.BusPage"
+﻿<Page x:Class="BusFleetManagerSystem.Pages.BusDriverPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,22 +6,21 @@
       xmlns:local="clr-namespace:BusFleetManagerSystem.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="BusPage"
+      Title="BusDriverPage"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal" 
+      TextOptions.TextRenderingMode="Auto"        
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-
         <materialDesign:DialogHost
         x:Name="DialogWindow"
         DialogClosing="Sample1_DialogHost_OnDialogClosing"
         DialogTheme="Inherit">
-            <!--<materialDesign:DialogHost.DialogContent>
+            <materialDesign:DialogHost.DialogContent>
                 <StackPanel Height="500">
                     <ScrollViewer Height="400" VerticalScrollBarVisibility="Visible">
                         <Grid Margin="10" ScrollViewer.CanContentScroll="True">
@@ -45,55 +44,25 @@
                                 <TextBlock Text="Имя" Grid.Row="0" VerticalAlignment="Center"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="0" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxFirstnameUpdate2" Text ="{Binding SelectedItem.Firstname, ElementName=DGridDrivers}"/>
+                                <TextBox x:Name="textBoxFirstnameUpdate2" Text ="{Binding SelectedItem.Firstname, ElementName=DGridBusDriver}"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="1" Grid.Column="0" Padding="10" Margin="16">
                                 <TextBlock Text="Отчество" Grid.Row="0" VerticalAlignment="Center"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="1" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxSurnameUpdate2" Text ="{Binding SelectedItem.Surname, ElementName=DGridDrivers}"/>
+                                <TextBox x:Name="textBoxSurnameUpdate2" Text ="{Binding SelectedItem.Surname, ElementName=DGridBusDriver}"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="2" Grid.Column="0" Padding="10" Margin="16">
                                 <TextBlock Text="Фамилия" Grid.Row="0" VerticalAlignment="Center"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="2" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxLastnameUpdate2" Text ="{Binding SelectedItem.Lastname, ElementName=DGridDrivers}"/>
+                                <TextBox x:Name="textBoxLastnameUpdate2" Text ="{Binding SelectedItem.Lastname, ElementName=DGridBusDriver}"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="3" Grid.Column="0" Padding="10" Margin="16">
-                                <TextBlock Text="Серия паспорта" Grid.Row="0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Автобус" Grid.Row="0" VerticalAlignment="Center"/>
                             </materialDesign:Card>
                             <materialDesign:Card Grid.Row="3" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxPassportSeriesUpdate2" Text ="{Binding SelectedItem.PassportSeries, ElementName=DGridDrivers}"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="4" Grid.Column="0" Padding="10" Margin="16">
-                                <TextBlock Text="Номер паспорта" Grid.Row="0" VerticalAlignment="Center"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="4" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxPassportNumberUpdate2" Text ="{Binding SelectedItem.PassportNumber, ElementName=DGridDrivers}"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="5" Grid.Column="0" Padding="10" Margin="16">
-                                <TextBlock Text="Регистрация" Grid.Row="0" VerticalAlignment="Center"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="5" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxRegistrationUpdate2" Text ="{Binding SelectedItem.Registration, ElementName=DGridDrivers}"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="6" Grid.Column="0" Padding="10" Margin="16">
-                                <TextBlock Text="Класс водителя" Grid.Row="0" VerticalAlignment="Center"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="6" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxDriverClassUpdate2" Text ="{Binding SelectedItem.DriverClass, ElementName=DGridDrivers}"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="7" Grid.Column="0" Padding="10" Margin="16">
-                                <TextBlock Text="Стаж работы" Grid.Row="0" VerticalAlignment="Center"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="7" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxWorkExperienceUpdate2" Text ="{Binding SelectedItem.WorkExperience, ElementName=DGridDrivers}"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="8" Grid.Column="0" Padding="10" Margin="16">
-                                <TextBlock Text="Оклад" Grid.Row="0" VerticalAlignment="Center"/>
-                            </materialDesign:Card>
-                            <materialDesign:Card Grid.Row="8" Grid.Column="1" Padding="10" Margin="16">
-                                <TextBox x:Name="textBoxSalaryUpdate2" Text ="{Binding SelectedItem.Salary, ElementName=DGridDrivers}"/>
+                                <ComboBox x:Name="ComboBoxBusNumberUpdate" DisplayMemberPath="BusNumber" Text="{Binding SelectedItem.Bus.BusNumber, ElementName=DGridBusDriver}"/>
                             </materialDesign:Card>
                         </Grid>
                     </ScrollViewer>
@@ -109,7 +78,7 @@
                         Margin="0 8 8 0"
                         Content="Обновить"
                         x:Name="btnUpdate2"
-                        Click="btnUpdate_Click"
+                        Click="btnSave_Click"
                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                             <Button.CommandParameter>
                                 <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
@@ -131,7 +100,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-            </materialDesign:DialogHost.DialogContent>-->
+            </materialDesign:DialogHost.DialogContent>
             <Grid Margin="15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -142,11 +111,13 @@
                     <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
                 <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.RowSpan="2" Margin="0 10">
-                    <DataGrid x:Name="DGridBuses" AutoGenerateColumns="False" IsReadOnly="True" Margin="30" Width="auto" GridLinesVisibility="Horizontal" VerticalGridLinesBrush="Gray" HorizontalGridLinesBrush="Gray">
+                    <DataGrid x:Name="DGridBusDriver" AutoGenerateColumns="False" IsReadOnly="True" Margin="30" Width="auto" GridLinesVisibility="Horizontal" VerticalGridLinesBrush="Gray" HorizontalGridLinesBrush="Gray">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Регистрационный номер" Binding="{Binding Path=BusNumber}"/>
-                            <DataGridTextColumn Header="Тип автобуса" Binding="{Binding Path=BusType.NameType}"/>
-                            <DataGridTextColumn Header="Вместимость" Binding="{Binding Path=BusType.Capacity}"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Path=Firstname}"/>
+                            <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Surname}"/>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Lastname}"/>
+                            <DataGridTextColumn Header="Номер автобуса" Binding="{Binding Path=Bus.BusNumber}"/>
+                            <DataGridTextColumn Header="Номер автобуса" Binding="{Binding Path=BusId}"/>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -178,17 +149,11 @@
                                                                 <RowDefinition Height="*"/>
                                                                 <RowDefinition Height="*"/>
                                                             </Grid.RowDefinitions>
-                                                            <materialDesign:Card Grid.Row="0" Grid.Column="0" Padding="10" Margin="16">
-                                                                <TextBlock Text="Регистрационный номер" Grid.Row="0" VerticalAlignment="Center"/>
-                                                            </materialDesign:Card>
-                                                            <materialDesign:Card Grid.Row="0" Grid.Column="1" Padding="10" Margin="16">
-                                                                <TextBox x:Name="textBoxBusNumberUpdate" Text ="{Binding Path= BusNumber}"/>
-                                                            </materialDesign:Card>
                                                             <materialDesign:Card Grid.Row="3" Grid.Column="0" Padding="10" Margin="16">
-                                                                <TextBlock Text="ID BusType" Grid.Row="0" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="Номер автобуса" Grid.Row="0" VerticalAlignment="Center"/>
                                                             </materialDesign:Card>
                                                             <materialDesign:Card Grid.Row="3" Grid.Column="1" Padding="10" Margin="16">
-                                                                <ComboBox x:Name="ComboBoxBusTypeIdUpdate" DisplayMemberPath="BusType_BusTypeId"/>
+                                                                <ComboBox x:Name="ComboBoxBusNumberUpdate1" DisplayMemberPath="BusNumber" Text="{Binding Path=Bus.BusNumber}"/>
                                                             </materialDesign:Card>
                                                         </Grid>
                                                     </ScrollViewer>
@@ -251,42 +216,22 @@
                         Width="150" 
                         Height="35"
                         Margin="0 0 0 100"
-                        Content="Добавить">
+                        Content="Редактировать">
                         <Button.CommandParameter>
                             <StackPanel Margin="16">
-                                <StackPanel Height="500">
-                                    <ScrollViewer Height="400" VerticalScrollBarVisibility="Visible">
-                                        <Grid Margin="10" ScrollViewer.CanContentScroll="True">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="400"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <materialDesign:Card Grid.Row="0" Grid.Column="0" Padding="10" Margin="16">
-                                                <TextBlock Text="Регистрационный номер" Grid.Row="0" VerticalAlignment="Center"/>
-                                            </materialDesign:Card>
-                                            <materialDesign:Card Grid.Row="0" Grid.Column="1" Padding="10" Margin="16">
-                                                <TextBox x:Name="textBoxBusNumber" Text ="{Binding Path= BusNumber}"/>
-                                            </materialDesign:Card>
-                                            <materialDesign:Card Grid.Row="1" Grid.Column="0" Padding="10" Margin="16">
-                                                <TextBlock Text="Вместимость" Grid.Row="0" VerticalAlignment="Center"/>
-                                            </materialDesign:Card>
-                                            <materialDesign:Card Grid.Row="1" Grid.Column="1" Padding="10" Margin="16">
-                                                <ComboBox x:Name="ComboBoxBusTypeId" DisplayMemberPath="BusTypeId" Text="{Binding Path=BusType_BusTypeId}"/>
-                                            </materialDesign:Card>
-                                        </Grid>
-                                    </ScrollViewer>
+                                <StackPanel Height="auto">
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="400"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:Card Grid.Row="3" Grid.Column="0" Padding="10" Margin="16">
+                                            <TextBlock Text="BusNumber" Grid.Row="0" VerticalAlignment="Center"/>
+                                        </materialDesign:Card>
+                                        <materialDesign:Card Grid.Row="3" Grid.Column="1" Padding="10" Margin="16">
+                                            <ComboBox x:Name="ComboBoxBusNumberUpdate1" DisplayMemberPath="BusNumber"/>
+                                        </materialDesign:Card>
+                                    </Grid>
                                     <StackPanel
                                         Grid.Row="9"
                                         Grid.ColumnSpan="2"
@@ -297,7 +242,7 @@
                                             Style="{StaticResource MaterialDesignFlatButton}"
                                             IsDefault="True"
                                             Margin="0 8 8 0"
-                                            Content="Сохранить"
+                                            Content="Обновить"
                                             x:Name="btnSave"
                                             Click="btnSave_Click"
                                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
@@ -324,12 +269,20 @@
                             </StackPanel>
                         </Button.CommandParameter>
                     </Button>
-
+                    <Button
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        materialDesign:DialogHost.DialogClosingAttached="Sample2_DialogHost_OnDialogClosing"
+                        x:Name="btnEdit"
+                        Click="btnEdit_Click"
+                        Width="150"
+                        Height="35"
+                        Content="Добавить"/>
                     <Button Content="Удалить" x:Name="btnDelete" HorizontalAlignment="Center" Width="150" Height="35" Grid.Column="2" Click="btnDelete_Click"/>
                 </StackPanel>
             </Grid>
-            
+
         </materialDesign:DialogHost>
-    
+
     </Grid>
 </Page>
+

@@ -20,22 +20,32 @@
         SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
 
         <materialDesign:DrawerHost
-            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="220">
+            IsTopDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.TopDrawerContent>
+                <DockPanel MinHeight="220" >
                     <ToggleButton 
                         Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                         DockPanel.Dock="Top"
-                        HorizontalAlignment="Right" 
+                        HorizontalAlignment="Left" 
                         Margin="16"
-                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
+                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" RenderTransformOrigin="0.5,0.5">
+                        <ToggleButton.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ToggleButton.RenderTransform>
+                    </ToggleButton>
 
                     <TextBox 
                         x:Name="DemoItemsSearchBox"
                         Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
                         DockPanel.Dock="Top"
-                        Margin="16, 4"
-                        Width="200"
+                        HorizontalAlignment="Left"
+                        Margin="80, 4"
+                        Width="400"
                         materialDesign:HintAssist.Hint="Search"
                         materialDesign:HintAssist.IsFloating="True"
                         materialDesign:TextFieldAssist.HasClearButton="True"
@@ -43,18 +53,21 @@
                         materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
                         materialDesign:TextFieldAssist.TextFieldCornerRadius="4"/>
 
-                    <ListBox 
+                    <ListBox
                         x:Name="DemoItemsListBox" 
-                        Margin="0 16 0 16"
+                        HorizontalAlignment="Left"
+                        Margin="50 16 0 16"
                         SelectedIndex="{Binding SelectedIndex}"
                         SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding DemoItems}"
                         PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
                         AutomationProperties.Name="DemoPagesListBox"
                         Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
+                        
                         <ListBox.Resources>
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
                         </ListBox.Resources>
+                        <StackPanel Orientation="Horizontal">
                         <ListBoxItem>
                             <Button x:Name="btnMainPage" Click="btnMainPage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -78,10 +91,20 @@
                                     <TextBlock Text="Buses" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
                                 </StackPanel>
                             </Button>
-                        </ListBoxItem>
+                                
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <Button x:Name="btnDriverBusPage" Click="btnDriverBusPage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Bus" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="DriverBus" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListBoxItem>
+                        </StackPanel>
                     </ListBox>
                 </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
+            </materialDesign:DrawerHost.TopDrawerContent>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -211,7 +234,7 @@
                         materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
                         HorizontalScrollBarVisibility="{Binding SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
                         VerticalScrollBarVisibility="{Binding SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}" >
-                        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/MainPage.xaml" Grid.Row="1">
+                        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/BusDriverPage.xaml" Grid.Row="1">
 
                         </Frame>
                     </ScrollViewer>

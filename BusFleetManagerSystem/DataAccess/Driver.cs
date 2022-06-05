@@ -17,9 +17,8 @@ namespace BusFleetManagerSystem.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Driver()
         {
-            this.Buses = new HashSet<Bus>();
-            this.BusRoutes = new HashSet<BusRoute>();
             this.Schedules = new HashSet<Schedule>();
+            this.BusRoutes = new HashSet<BusRoute>();
         }
     
         public int DriverId { get; set; }
@@ -32,12 +31,12 @@ namespace BusFleetManagerSystem.DataAccess
         public int DriverClass { get; set; }
         public int WorkExperience { get; set; }
         public long Salary { get; set; }
+        public int Bus_BusId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bus> Buses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BusRoute> BusRoutes { get; set; }
+        public virtual Bus Bus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BusRoute> BusRoutes { get; set; }
     }
 }

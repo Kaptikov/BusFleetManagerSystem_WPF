@@ -109,6 +109,9 @@
     <Compile Include="DataAccess\User.cs">
       <DependentUpon>BusFleetManagerSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BusDriverPage.xaml.cs">
+      <DependentUpon>BusDriverPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BusPage.xaml.cs">
       <DependentUpon>BusPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\BusDriverPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BusPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
