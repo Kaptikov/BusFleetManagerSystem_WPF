@@ -115,14 +115,26 @@
     <Compile Include="Pages\BusPage.xaml.cs">
       <DependentUpon>BusPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BusRoutePage.xaml.cs">
+      <DependentUpon>BusRoutePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DeparturePointPage.xaml.cs">
+      <DependentUpon>DeparturePointPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DialogDemo.xaml.cs">
       <DependentUpon>DialogDemo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\DriverPage.xaml.cs">
       <DependentUpon>DriverPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DriverRouteShedulePage.xaml.cs">
+      <DependentUpon>DriverRouteShedulePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RoutePage.xaml.cs">
+      <DependentUpon>RoutePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
@@ -150,6 +162,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\BusRoutePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DeparturePointPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\DialogDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,7 +178,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\DriverRouteShedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RoutePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

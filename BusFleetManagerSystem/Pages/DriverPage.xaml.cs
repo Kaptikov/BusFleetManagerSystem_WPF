@@ -178,13 +178,13 @@ namespace BusFleetManagerSystem.Pages
             {
                 errors.AppendLine("Укажите оклад!");
             }
-            /*
-            if (_currentDriver.PassportSeries < 4 || )
+            
+            /*if (_currentDriver.PassportSeries < 4 && _currentDriver.PassportSeries >= 5)
             {
                 errors.AppendLine("Некорректная серия паспорта");
             }
 
-            if (_currentDriver.PassportNumber < 6 || _currentDriver.PassportNumber > 6)
+            if (_currentDriver.PassportNumber < 6 && _currentDriver.PassportNumber >= 7)
             {
                 errors.AppendLine("Некорректный номер паспорта");
             }*/
@@ -217,7 +217,7 @@ namespace BusFleetManagerSystem.Pages
                 driver.DriverClass = _currentDriver.DriverClass;
                 driver.WorkExperience = _currentDriver.WorkExperience;
                 driver.Salary = _currentDriver.Salary;
-                _currentDriverBus.BusId = driver.Bus_BusId;
+                driver.Bus_BusId = _currentDriver.Bus_BusId;
 
                 BusFleetManagerSystemDBEntities.GetContext().Drivers.Add(driver);
             }
@@ -259,10 +259,6 @@ namespace BusFleetManagerSystem.Pages
                 BusFleetManagerSystemDBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
                 DGridDrivers.ItemsSource = BusFleetManagerSystemDBEntities.GetContext().Drivers.ToList();
             }
-        }
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

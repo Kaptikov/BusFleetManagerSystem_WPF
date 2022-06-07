@@ -63,11 +63,10 @@
                         PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
                         AutomationProperties.Name="DemoPagesListBox"
                         Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
-                        
                         <ListBox.Resources>
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
                         </ListBox.Resources>
-                        <StackPanel Orientation="Horizontal">
+                        <WrapPanel Orientation="Horizontal">
                         <ListBoxItem>
                             <Button x:Name="btnMainPage" Click="btnMainPage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -101,8 +100,41 @@
                                     </StackPanel>
                                 </Button>
                             </ListBoxItem>
-                        </StackPanel>
+                            <ListBoxItem>
+                                <Button x:Name="btnDriverRouteShedulePage" Click="btnDriverRouteShedulePage_Click" Width="200" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Bus" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="DriverRoute" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <Button x:Name="btnBusRoutePage" Click="btnBusRoutePage_Click" Width="200" Height="50" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="MapMarker" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="BusRoute" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <Button x:Name="btnDeparturePointPage" Click="btnDeparturePointPage_Click" Width="200" Height="50" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="MapMarker" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="Point of departure" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <Button x:Name="btnRoutePage" Click="btnRoutePage_Click" Width="200" Height="50" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="MapMarker" Width="25" Height="25" Margin="0 0 20 0" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="Route" HorizontalAlignment="Right" Margin="0 0 80 0" FontSize="18"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListBoxItem>
+                        </WrapPanel>
                     </ListBox>
+                    
                 </DockPanel>
             </materialDesign:DrawerHost.TopDrawerContent>
 
@@ -234,7 +266,7 @@
                         materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
                         HorizontalScrollBarVisibility="{Binding SelectedItem.HorizontalScrollBarVisibilityRequirement, FallbackValue=Disabled}"
                         VerticalScrollBarVisibility="{Binding SelectedItem.VerticalScrollBarVisibilityRequirement, FallbackValue=Disabled}" >
-                        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/BusDriverPage.xaml" Grid.Row="1">
+                        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/DeparturePointPage.xaml" Grid.Row="1">
 
                         </Frame>
                     </ScrollViewer>
